@@ -18,17 +18,15 @@ protected:
      */
     std::vector<T> terms;
 
-    /**
-     * The size of the vector
-     */
-    int size;
 
 public:
 
-    num_vec(int size, const T* vals) {
-        this->size = size;
-        terms = std::vector<T>(vals, vals+size);
-    }
+    /**
+     * The size of the vector
+     */
+    const int size;
+
+    num_vec(int size, const T* vals) : size(size), terms(std::vector<T>(vals, vals+size)) {}
 
     void print() {
         std::vector<T>::iterator it;
@@ -77,6 +75,9 @@ public:
         return *this * (1/sqrt(square_magnitude()));
     }
 
+    /**
+     * @throw runtime_error if vectors are different sizes.
+     */
     T dot(num_vec<T>& other) {
         if(this->size != other.size)
             throw std::runtime_error("Vector dimensions do not agree - cannot calculate dot product.");
