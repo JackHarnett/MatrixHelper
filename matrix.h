@@ -47,6 +47,9 @@ public:
         if(actual.size() != terms.size()) throw std::runtime_error("Matrix row dimensions do not agree.");
     }
 
+    matrix(const matrix& other) : rows(other.rows), cols(other.cols), terms(other.terms) {}
+
+
     void print() {
         std::vector<num_vec<T>>::iterator it;
 
