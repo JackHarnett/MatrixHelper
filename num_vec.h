@@ -5,6 +5,7 @@
 #ifndef MATRIXHELPER_VECTOR_H
 #define MATRIXHELPER_VECTOR_H
 
+#include <memory>
 #include <vector>
 #include <math.h>
 
@@ -41,7 +42,7 @@ public:
     /**
      * Creates new vector; does not mutate existing.
      */
-    num_vec<T> operator* (T fact) {
+    std::unique_ptr<num_vec<T>> operator* (T fact) const {
         auto * temp = new T[size];
         std::vector<T>::iterator it;
 
@@ -50,7 +51,7 @@ public:
             *(temp + j) = *it * fact;
         }
 
-        return num_vec(size, temp);
+        return std::make_unique<num_vec<T>>(size, temp);
     }
 
     T square_magnitude() {
@@ -78,7 +79,7 @@ public:
     /**
      * @throw runtime_error if vectors are different sizes.
      */
-    T dot(num_vec<T>& other) {
+    T dot(num_vec<T>& other) const {
         if(this->size != other.size)
             throw std::runtime_error("Vector dimensions do not agree - cannot calculate dot product.");
 
@@ -89,6 +90,10 @@ public:
         }
 
         return temp;
+    }
+
+    T get(int idx) const {
+        return terms[idx];
     }
 };
 
