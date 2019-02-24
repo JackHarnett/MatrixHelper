@@ -119,6 +119,10 @@ public:
         return terms[y].get(x);
     }
 
+    void set(int x, int y, T val) {
+        terms[y].set(x, val);
+    }
+
 };
 
 #endif //MATRIXHELPER_MATRIX_H
