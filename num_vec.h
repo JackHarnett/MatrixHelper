@@ -7,7 +7,7 @@
 
 #include <memory>
 #include <vector>
-#include <math.h>
+#include <cmath>
 
 template <class T>
 class num_vec {
@@ -30,7 +30,7 @@ public:
     num_vec(int size, const T* vals) : size(size), terms(std::vector<T>(vals, vals+size)) {}
 
     void print() {
-        std::vector<T>::iterator it;
+        typename std::vector<T>::iterator it;
 
         std::cout << "{ ";
         for(it = terms.begin(); it != terms.end(); it++) {
@@ -44,7 +44,7 @@ public:
      */
     std::unique_ptr<num_vec<T>> operator* (T fact) const {
         auto * temp = new T[size];
-        std::vector<T>::iterator it;
+        typename std::vector<T>::iterator it;
 
         int j = 0;
         for(it = terms.begin(); it != terms.end(); it++, j++) {
@@ -57,7 +57,7 @@ public:
     T square_magnitude() {
         T square_sum = 0;
 
-        std::vector<T>::iterator it;
+        typename std::vector<T>::iterator it;
         for(it = terms.begin(); it != terms.end(); it++) {
             square_sum += pow(*it, 2);
         }
@@ -94,6 +94,10 @@ public:
 
     T get(int idx) const {
         return terms[idx];
+    }
+
+    void set(int idx, T val) {
+        terms[idx] = val;
     }
 };
 

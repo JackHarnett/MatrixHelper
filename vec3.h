@@ -13,7 +13,7 @@ class vec3 : public num_vec<T> {
 
 public:
 
-    vec3(int size, const T *vals) : num_vec(size, vals) {}
+    vec3(int size, const T *vals) : num_vec<T>(size, vals) {}
 
     std::unique_ptr<vec3<T>> cross(const vec3<T>& other) const {
         T first  = (this->terms[1] * other.terms[2]) - (this->terms[2] * other.terms[1]);

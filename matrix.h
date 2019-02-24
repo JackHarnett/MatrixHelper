@@ -51,7 +51,7 @@ public:
 
 
     void print() {
-        std::vector<num_vec<T>>::iterator it;
+        typename std::vector<num_vec<T>>::iterator it;
 
         for(it = terms.begin(); it != terms.end(); it++) {
             it->print();
@@ -69,14 +69,14 @@ public:
         row_vec.reserve(rows);
 
         for(int i = 0; i < rows; i++) {
-            T* temp = new T[cols];
+            auto temp = new T[cols];
 
             for(int j = 0; j < cols; j++) {
                 temp[j] = this->terms[j].get(i);
             }
 
             row_vec.push_back(num_vec(cols, temp));
-            delete temp;
+            delete[] temp;
         }
 
         return std::make_unique<matrix<T>>(row_vec.size(), &row_vec[0]);
@@ -113,6 +113,10 @@ public:
         }
 
         return std::make_unique<matrix<T>>(mat.size(), &mat[0]);
+    }
+
+    T get(int x, int y) {
+        return terms[y].get(x);
     }
 
 };
